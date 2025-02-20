@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function getFirstLetter(word)
+        {
+            letter = word.charAt(0)
+            return letter.toUpperCase();
+        }
+        //ask user for their name
+        //case 1 enter nothing err
+        //case 2 no middle name- say 'no middle name'
+        // case 3 3 names, 2nd is middle
+        // case 4 more than 3 names - err
+        name = prompt("Enter name")
+        if (name == "") // case 1
+        msg = "No name entered"
+        else 
+        {
+            names = name.split("") // split turns it into an array with all the words
+            switch (names.length)
+            {
+                case 2: msg = "no middle name entered"; break;
+                case 3: initial = getFirstLetter(names[1]);
+                    msg = "The middle initial is;" + initial; break;
+
+                default: msg = "Too many names entered"; break;
+            }
+            msg = names[0]
+
+        }
+        console.log(msg)
+    </script>
+</body>
+</html>

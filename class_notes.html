@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <title>Tic Tac Toe</title>
+    <style type="text/css">
+        h1{
+            font-family: "Bebas Neue";
+            text-align: center; 
+            vertical-align: center;          
+            color: rgb(43, 226, 76);
+            font-size: 50px;
+            font-family:"Bebas Neue";}
+        .box {
+            
+            vertical-align: center;
+            width: 340px; 
+            height: 800px;
+            margin-right: auto; 
+            margin-left: auto;
+            }
+        .square {
+            display: inline-block; 
+            width: 100px; 
+            height: 100px;  
+            font-size: 50px;  
+            color: #090909; 
+            line-height: 100px; 
+            text-align: center; 
+            vertical-align: top;
+            border: 1px solid black; 
+            margin: 5px; }
+        .square:hover {
+            background-color: #27c20f;
+            color: white}
+         .turn-outcome {
+           text-decoration: none;
+            display: inline-block; 
+            font-size: 15px;  
+        
+         }
+         .turn-outcome li{
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            background-color: #27c20f;
+            display: inline-block;
+            text-align:center; 
+            border-radius:6px;
+            height: 75px;
+            Width:125px;
+            color: #fff; 
+            border: 2px solid black;      
+         }   
+         .turn-outcome li:hover {
+            background-color: #ecf1ec; color: #27c20f}
+
+    </style>
+
+
+</head>
+<body>
+
+    <h1>Let's Play Tic Tac Toe</h1>
+    <div class="box">
+    <script>
+        const NUM_SQUARES = 9;
+        for (i=0; i<NUM_SQUARES; i++)
+        {
+            id = "sq"+i;
+            document.write( "<div class='square' id='" + id + "'></div>" );
+        }
+    </script>
+
+    
+<script>
+
+    document.querySelectorAll(".square")
+    foreach (let i = 0; i < 9; i++) {
+        let square = document.getElementById("sq" + i); 
+        square.addEventListener("click", function () {
+            if (!this.innerHTML) {
+                this.innerHTML = "X";
+                alert("You clicked on " + this.id);
+            }
+        });
+    }
+    
+
+    </script>
+    
+    <ul class="turn-outcome">
+        <li><div class="turn"><h2>It is Player 2's Turn</h2></div></li>
+        <li><div class="outcome"><h2>The winner is Player ... </h2></div></li>
+     </ul>
+
+   </div>
+
+        
+        </script>
+</body>
+</html>
