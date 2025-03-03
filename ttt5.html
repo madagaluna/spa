@@ -1,0 +1,163 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <title>Tic Tac Toe</title>
+    <style type="text/css">
+        h1 {
+            font-family: "Bebas Neue";
+            text-align: center; 
+            vertical-align: center;          
+            color: rgb(43, 226, 76);
+            font-size: 50px;
+        }
+        .box {
+            vertical-align: center;
+            width: 340px; 
+            height: 500px;
+            margin-right: auto; 
+            margin-left: auto;
+        }
+        .square {
+            display: inline-block; 
+            width: 100px; 
+            height: 100px;  
+            font-size: 50px;  
+            color: #090909; 
+            line-height: 100px; 
+            text-align: center; 
+            vertical-align: top;
+            border: 1px solid black; 
+            margin: 5px; 
+        }
+        .square:hover {
+            background-color: #27c20f;
+            color: white;
+        }
+        .turn-outcome {
+            text-decoration: none;
+            display: inline-block; 
+            font-size: 15px; 
+        }
+        .turn-outcome li {
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            background-color: #27c20f;
+            display: inline-block;
+            text-align: center; 
+            border-radius: 40px;
+            height: 100px;
+            width: 125px;
+            color: #fff; 
+            border: 2px solid black; 
+            padding: 2px;
+            margin: 5px;      
+        }   
+        .turn-outcome li:first-child {
+            height: 150px;
+            width: 300px;
+            margin: auto;
+        }
+        .turn-outcome li:hover {
+            background-color: #ecf1ec; 
+            color: #27c20f;
+        }
+    </style>
+</head>
+<body>
+    <h1>Let's Play Tic Tac Toe</h1>
+    <div class="box" id="gameBoard">
+    <script>
+        const NUM_SQUARES = 9;
+        for (let i=0; i<NUM_SQUARES; i++)
+        {
+            let id = "sq"+i;
+            document.write("<div class='square' id='" + id + "'></div>" );
+        }
+    </script>
+
+        <ul class="turn-outcome">
+            <li><div class="start"><h2 id="startGame">Start Game!</h2></div></li>
+            <li><div class="turn"><h2 id="first_turn">It is <em>Y</em>'s Turn</h2></div></li>
+            <li><div class="outcome"><h2 id="winner">The winner is Player ... </h2></div></li>
+        </ul>
+    </div>    
+    <script>
+    window.onload = function() {
+        
+        let turn = Math.random() <0.5 ? "X" : "O";
+        document.getElementById("first_turn").innerHTML = "It is <em>" + turn + "</em>'s Turn";
+
+        const win_Conditions = [
+                "012", "345", "678",  
+                "036", "147", "258",  
+                "048", "246"          
+            ];
+    
+        function getStatus() {
+            return Array.from({ length: 9 }, (_, i) => {
+                return document.getElementById("sq" + i).innerText || "-";
+            });
+        }
+       
+        function whoWins(moves) {
+            for (let condition of win_Conditions) 
+        {
+                let [a,b,c] = condition.split("").map(index=>parseInt(index));
+                if (moves[a] !== "-" && moves[a] === moves[b] && moves[a] === moves[c]) {
+                    return moves[a];
+                }
+            }
+            return moves.includes("-") ? null : "stalemate" 
+        }
+
+        function changeTurns()
+         {
+                    if(!this.innerHTML)
+                    {
+                     this.innerHTML=turn;
+                     let moves = getStatus();
+                     let result = whoWins(moves);
+
+                     if (result) 
+                     {
+                        document.getElementById("winner").innerHTML = result === "stalemate" ? "It's a stalemate!" : "The winner is Player" + result ;
+                        disableBoard();
+
+                     }
+                     else
+                     {
+                        
+                     turn = (turn === "O") ? "X": "O";
+                     document.getElementById("first_turn").innerHTML = "It is <em>" + turn + "</em>'s Turn";
+                     }
+            }
+         }
+         function disableBoard() {
+            document.querySelectorAll(".square").forEach(square=> square.removeEventListener("click", changeTurns));
+         }
+         function reStart() 
+         {
+            for (let i=0; i<NUM_SQUARES; i++)
+            {
+                let square = document.getElementById("sq" + i);
+                square.innerHTML = "";
+                square.addEventListener("click", changeTurns);
+             }
+          
+            document.getElementById("winner").innerHTML = "The winner is Player ...";
+            turn = Math.random() <0.5 ? "X" : "O";
+            document.getElementById("first_turn").innerHTML = "It is <em>" + turn + "</em>'s Turn";
+        }
+
+            document.getElementById("startGame").addEventListener("click", reStart);
+            for (let i=0; i<NUM_SQUARES; i++)
+            {
+                let square = document.getElementById("sq" + i);
+                square.addEventListener("click", changeTurns);
+            }
+        }       
+    </script>  
+</body>
+</html>
